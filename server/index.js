@@ -17,11 +17,10 @@ app.get('/', (req, res) => {
 })
 
 app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-    // ConnectDB().then(() => {
-    //     console.log('Server is Running !');
-    // }).catch((err) => {
-    //     console.log('DataBase connection Failed !!');
-    //     console.log(err);
-    // });
+    ConnectDB().then(() => {
+        console.log('Server is Running !');
+    }).catch((err) => {
+        console.log('DataBase connection Failed !!');
+        console.log(err);
+    });
 });
