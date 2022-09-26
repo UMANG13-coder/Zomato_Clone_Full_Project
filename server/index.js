@@ -1,7 +1,8 @@
 import express from 'express'
 import dotenv from 'dotenv'
 
-import ConnectDB from './database/connection'
+import ConnectDB from './database/connection.js'
+import Auth from './api/auth'
 
 dotenv.config();
 
@@ -14,7 +15,9 @@ app.get('/', (req, res) => {
     res.status(200).json({
         message: "server is run"
     })
-})
+});
+
+app.use('/auth', Auth);
 
 app.listen(port, () => {
     ConnectDB().then(() => {

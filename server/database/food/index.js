@@ -26,4 +26,4 @@ const FoodSchema = new mongoose.Schema(
         timestamps: true,
     });
 
-export const FoodModal = mongoose.model("foods", FoodSchema);
+export const FoodModel = mongoose.model("foods", FoodSchema);
