@@ -38,8 +38,32 @@ Router.get('/:_id', async (req, res) => {
     const getUser = await UserModel.findById(_id);
     const { fullName } = getUser;
     if (!getUser) return res.status(404).json({ message: 'User not Found !' });
-    return res.status(200).json({ fullName });
+    return res.status(200).json({ user: { fullName } });
 
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+});
+
+/**
+ * Route     /update/:_id
+ * Des       update user data by _id
+ * Params    _id
+ * Access    Private
+ * Method    GET
+ */
+Router.put('/update/:_id', async (req, res) => {
+  try {
+    const { _id } = req.params;
+    const { userData } = req.body;
+
+    const updateUser = await UserModel.findByIdAndUpdate(
+      _id,
+      { $set: userData },
+      { new: true }
+    )
+
+    return res.status(200).json({ user: { updateUser } })
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }

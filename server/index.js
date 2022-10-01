@@ -20,7 +20,7 @@ const port = 3000;
 privateConfig(passport);
 
 app.use(express.json());
-app.use(session({ secret: "ZomatoApp" }));
+app.use(session({ secret: process.env.JWTSECRETKEY }));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -34,7 +34,7 @@ app.use('/auth', Auth);
 
 app.use('/resturant', restaurant);
 
-app.use('/user',User);
+app.use('/user', User);
 
 app.listen(port, () => {
     ConnectDB().then(() => {

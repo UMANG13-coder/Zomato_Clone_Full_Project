@@ -15,7 +15,7 @@ const UserSchema = new mongoose.Schema(
     })
 
 UserSchema.methods.generateJsonWebTokens = function () {
-    return jwt.sign({ user: this._id.toString() }, "ZomatoApp");
+    return jwt.sign({ user: this._id.toString() }, process.env.JWTSECRETKEY);
 }
 
 UserSchema.statics.findByEmailAndPhone = async ({ email, phoneNumber }) => {
