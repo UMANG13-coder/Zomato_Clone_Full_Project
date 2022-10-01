@@ -18,7 +18,7 @@ const FoodSchema = new mongoose.Schema(
         },],
         restaurant: {
             type: mongoose.Types.ObjectId,
-            ref: "restaurants",
+            ref: "resturants",
             required: true,
         }
     },

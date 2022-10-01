@@ -1,12 +1,12 @@
 import mongoose from "mongoose";
 
-const RestaurentSchema = new mongoose.Schema({
+const ResturentSchema = new mongoose.Schema({
     name: { type: String, required: true },
     city: { type: String, required: true },
     address: { type: String, required: true },
     maplocation: { type: String, required: true },
     cuisine: [String],
-    restaurentTimings: String,
+    resturentTimings: String,
     contactNumber: Number,
     website: Number,
     popularDishes: [String],
@@ -29,4 +29,8 @@ const RestaurentSchema = new mongoose.Schema({
     timestamps: true,
 })
 
-export const RestaurentModel = mongoose.model("resturants", RestaurentSchema)
+ResturentSchema.methods.get_id = function () {
+    return this._id.toString();
+}
+
+export const ResturentModel = mongoose.model("resturants", ResturentSchema)

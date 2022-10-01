@@ -5,6 +5,18 @@ import { FoodModel } from '../../database/allModules'
 const Router = express.Router();
 
 /**
+ * Route     /
+ * Des       Create New Food Item
+ * Params    none
+ * Access    Public
+ * Method    POST
+ */
+Router.post('/',async (req,res)=>{ 
+    const foods = await FoodModel.create(req.body.foodItem);
+
+})
+
+/**
  * Route    /:_id
  * des      get food by _id
  * params   _id

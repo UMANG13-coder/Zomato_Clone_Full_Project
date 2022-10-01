@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { ImageModal } from "../allModules";
 
 const ImageSchema = new mongoose.Schema(
     {
