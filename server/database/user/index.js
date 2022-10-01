@@ -15,7 +15,7 @@ const UserSchema = new mongoose.Schema(
     })
 
 UserSchema.methods.generateJsonWebTokens = function () {
-    return jwt.sign({ user: this._id.toString() }, process.env.JWTSECRETKEY);
+    return jwt.sign({ user: this._id.toString() }, process.env.SECRETORKEY);
 }
 
 UserSchema.statics.findByEmailAndPhone = async ({ email, phoneNumber }) => {

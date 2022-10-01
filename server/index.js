@@ -20,13 +20,13 @@ const port = 3000;
 privateConfig(passport);
 
 app.use(express.json());
-app.use(session({ secret: process.env.JWTSECRETKEY }));
+app.use(session({ secret: process.env.SECRETORKEY }));
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.get('/', (req, res) => {
     res.status(200).json({
-        message: "server is run"
+        message: "server is running !"
     })
 });
 

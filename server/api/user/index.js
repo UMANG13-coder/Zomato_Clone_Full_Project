@@ -50,23 +50,33 @@ Router.get('/:_id', async (req, res) => {
  * Des       update user data by _id
  * Params    _id
  * Access    Private
- * Method    GET
+ * Method    PUT
  */
-Router.put('/update/:_id', async (req, res) => {
-  try {
-    const { _id } = req.params;
-    const { userData } = req.body;
+Router.put(
+  "/update/:_id",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    try {
+      const { _id } = req.params;
+      const { userData } = req.body;
 
-    const updateUser = await UserModel.findByIdAndUpdate(
-      _id,
-      { $set: userData },
-      { new: true }
-    )
+      userData.password = undefined;
 
-    return res.status(200).json({ user: { updateUser } })
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
+      const updateUserData = await UserModel.findByIdAndUpdate(
+        _id,
+        {
+          $set: userData,
+        },
+        {
+          new: true,
+        }
+      );
+
+      return res.status(200).json({ user: { updateUserData } });
+    } catch (error) {
+      return res.status(500).json({ error: error.message });
+    }
   }
-})
+);
 
 export default Router;
