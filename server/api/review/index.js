@@ -1,6 +1,7 @@
 import express from 'express'
 import { ReviewModel } from '../../database/allModules'
 import passport from 'passport';
+import { IdValidation } from '../../validation/common.validation';
 
 const Router = express.Router();
 
@@ -50,6 +51,7 @@ Router.delete('/delete/:id', passport.authenticate('jwt', { session: false }), a
     try {
         const { user } = req;
         const { id } = req.params;
+        await IdValidation(req.params);
         const deleteReview = await ReviewModel.findByIdAndDelete({ _id: id, user: user._id });
         if (!deleteReview) return res.status(400).json({ Error: " Review was not Deleted ! " })
         return res.status(200).json({ message: "Review Deleted Successfully ", deleteReview });

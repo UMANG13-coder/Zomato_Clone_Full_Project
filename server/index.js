@@ -14,6 +14,7 @@ import Order from './api/order'
 import Menu from './api/menu'
 import Order from './api/order'
 import Review from './api/review'
+// import Image from './api/image'
 
 dotenv.config();
 
@@ -41,6 +42,8 @@ app.use('/order', Order);
 app.use('/menu', Menu);
 app.use('/order', Order);
 app.use('/review', Review);
+// app.use('/image', Image);
+
 
 app.listen(port, () => {
     ConnectDB().then(() => {

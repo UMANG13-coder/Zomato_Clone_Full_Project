@@ -1,6 +1,6 @@
 import express from 'express'
-
 import { FoodModel } from '../../database/allModules'
+import { CategoryValidation, IdValidation } from '../../validation/common.validation';
 
 const Router = express.Router();
 
@@ -11,8 +11,14 @@ const Router = express.Router();
  * Access    Public
  * Method    POST
  */
-Router.post('/',async (req,res)=>{ 
-    const foods = await FoodModel.create(req.body.foodItem);
+Router.post('/', async (req, res) => {
+    try {
+        const foods = await FoodModel.create(req.body.foodItem);
+
+        return res.status(200).json({ foods });
+    } catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
 
 })
 
@@ -27,6 +33,7 @@ Router.post('/',async (req,res)=>{
 Router.get('/:_id', async (req, res) => {
     try {
         const { _id } = req.params;
+        await IdValidation(req.params);
         const foods = await FoodModel.findById(_id);
         if (!foods) {
             return res.status(400).json({ Error: 'Food item not found' });
@@ -47,8 +54,9 @@ Router.get('/:_id', async (req, res) => {
 Router.get('/r/:_id', async (req, res) => {
     try {
         const { _id } = req.params;
+        await IdValidation(req.params);
         const foods = await FoodModel.find({
-            restaurant: _id
+            restaurant: _id,
         });
         if (!foods) {
             return res.status(400).json({ Error: 'Food item not found' });
@@ -69,8 +77,9 @@ Router.get('/r/:_id', async (req, res) => {
 Router.get('/c/:category', async (req, res) => {
     try {
         const { category } = req.params;
+        await CategoryValidation(req.params);
         const foods = await FoodModel.find({
-            catagory: { $regex: category, $options: 'i' }
+            category: { $regex: category, $options: 'i' }
         });
         if (!foods) {
             return res.status(400).json({ Error: 'Food item not found' });
